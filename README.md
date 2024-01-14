@@ -16,7 +16,7 @@ You can find the installation manual [here](https://docs.confluent.io/home/conne
 ## Create a custom docker image
 
 For running the azure connector, you can create your own docker image. Create your azure connector image and build it.
-
+con
 ## Launch Confluent for Kubernetes
 
 ### Create a namespace

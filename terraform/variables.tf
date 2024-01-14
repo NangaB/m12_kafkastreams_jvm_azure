@@ -1,4 +1,5 @@
 variable "ENV" {
+  default = "kafka12"
   type = string
   description = "The prefix which should be used for all resources in this environment. Make it unique, like ksultanau."
 }

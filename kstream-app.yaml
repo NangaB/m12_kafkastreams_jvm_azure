@@ -14,4 +14,4 @@ spec:
     spec:
       containers:
         - name: kstream-app
-          image: #insert-your-image-registry-address-here
+          image: kafka12.azurecr.io/cp-server-connect-operator:6.1.0.0

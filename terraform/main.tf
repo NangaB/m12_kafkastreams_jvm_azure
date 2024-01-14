@@ -1,8 +1,9 @@
 # Setup azurerm as a state backend
-terraform {
-  backend "azurerm" {
-  }
-}
+#terraform {
+#  backend "azurerm" {
+#  } only if logging into existing account
+# https://developer.hashicorp.com/terraform/language/settings/backends/azurerm
+#}
 
 # Configure the Microsoft Azure Provider
 provider "azurerm" {
