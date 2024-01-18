@@ -7,7 +7,9 @@ import org.apache.kafka.streams.StreamsConfig;
 import org.apache.kafka.streams.Topology;
 import org.apache.kafka.streams.kstream.Consumed;
 import org.apache.kafka.streams.kstream.KStream;
+import org.apache.kafka.streams.kstream.ValueMapper;
 
+import java.util.Arrays;
 import java.util.Properties;
 import java.util.concurrent.CountDownLatch;
 
@@ -16,22 +18,24 @@ public class KStreamsApplication {
     public static void main(String[] args) throws Exception {
 
         Properties props = new Properties();
-        props.put(StreamsConfig.APPLICATION_ID_CONFIG, "INSERT_YOUR_APP_ID");
-        props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "INSERT_YOUR_BOOTSTRAP_IP:PORT");
-        props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, "INSERT_YOUR_KEY_SERDE_CLASS_HERE");
-        props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, "INSERT_YOUR_VALUE_SERDE_CLASS_HERE");
+        props.put(StreamsConfig.APPLICATION_ID_CONFIG, "myapp");
+        props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());
+        props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass());
         //If needed
-        props.put("schema.registry.url", "INSERT_YOUR_SCHEMA_REGISTRY_IP:PORT");
+//        props.put("schema.registry.url", "INSERT_YOUR_SCHEMA_REGISTRY_IP:PORT");
 
-        final String INPUT_TOPIC_NAME = "";
-        final String OUTPUT_TOPIC_NAME = "";
+        //topics should be created
+        final String INPUT_TOPIC_NAME = "expedia";
+        final String OUTPUT_TOPIC_NAME = "expedia-ext";
 
         final StreamsBuilder builder = new StreamsBuilder();
 
-        final KStream<String, String> input_records = builder.stream(INPUT_TOPIC_NAME, Consumed.with(Serdes.String(), Serdes.String()));
+        final KStream<Long, Expedia> input_records = builder.stream(INPUT_TOPIC_NAME);
 
-        //Transform your records here
-        //input_records.map();
+        input_records.mapValues(
+                (userId, record) -> record.getSrch_co() - record.getSrch_ci()
+        );
 
         input_records.to(OUTPUT_TOPIC_NAME);
 

@@ -1,4 +1,11 @@
 {
   "name": "expedia",
-  "_comment": "Modify configuration for your needs"
+  "config": {
+    "kafka.topic" : "expedia",
+    "connector.class": "io.confluent.connect.azure.blob.storage.AzureBlobStorageSourceConnector",
+    "azblob.account.name": "stkafka12westeurope",
+    "azblob.account.key": "ol2gixJOTsvELmh2lPVFRf12dUXC4ATUJDuNKV4IqHoggj+cuvsOL9DK2K7lHDxdQNzjgT0MWU9a+ASt3Lv0HQ==",
+    "azblob.container.name": "data",
+    "format.class": "io.confluent.connect.azure.blob.storage.format.avro.AvroFormat"
+  }
 }
